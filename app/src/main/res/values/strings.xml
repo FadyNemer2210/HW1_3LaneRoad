@@ -1,0 +1,5 @@
+<resources>
+    <string name="BottleJobFC">BottleJobFC</string>
+    <string name="start_over">Start Over</string>
+    <string name="game_over_message">Game Over\nAnother year without UCL for Arsenal 💀</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="life_ball_size">60dp</dimen>
+
+    <dimen name="ucl_trophy_size">170dp</dimen>
+
+    <dimen name="arsenal_logo_width">170dp</dimen>
+    <dimen name="arsenal_logo_height">170dp</dimen>
+
+    <dimen name="arrow_button_size">90dp</dimen>
+    <dimen name="screen_margin">16dp</dimen>
+    <dimen name="life_spacing">4dp</dimen>
+</resources>
