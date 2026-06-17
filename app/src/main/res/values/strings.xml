@@ -7,4 +7,5 @@
     <string name="sensor_mode">Sensor Mode</string>
     <string name="coin_count">coin count: </string>
     <string name="distance_text">Distance: 0m</string>
+    <string name="goBackText">Back To Menu</string>
 </resources>

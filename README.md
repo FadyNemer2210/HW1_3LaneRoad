@@ -25,6 +25,9 @@ Collect coins to increase your score while surviving as long as possible.
 * Game Over screen
 * Start Over button
 * Back To Menu button
+* Back To Menu button
+* Custom launcher icon
+* Automatic game reset and restart functionality
 
 ## Controls
 

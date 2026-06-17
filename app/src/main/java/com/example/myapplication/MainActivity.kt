@@ -12,6 +12,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import kotlin.random.Random
+import android.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var gameOverLayout: View
     private lateinit var startOverButton: Button
+
+    private lateinit var backToMenuButton: Button
 
     private lateinit var menuLayout: View
 
@@ -97,9 +100,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initViews()
+        updateScore()
+        updateDistance()
         collectSound = android.media.MediaPlayer.create(this, R.raw.trophy_collect_sound)
-        setupButtons()
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        setupButtons()
         gameManager = GameManager(
             context = this,
             playerLane = { currentLane },
@@ -125,6 +130,7 @@ class MainActivity : AppCompatActivity() {
         rightButton = findViewById(R.id.rightButton)
 
         menuLayout = findViewById(R.id.menuLayout)
+        backToMenuButton = findViewById(R.id.backToMenuButton)
         slowModeButton = findViewById(R.id.slowModeButton)
         fastModeButton = findViewById(R.id.fastModeButton)
         sensorModeButton = findViewById(R.id.sensorModeButton)
@@ -155,47 +161,79 @@ class MainActivity : AppCompatActivity() {
         }
 
         slowModeButton.setOnClickListener {
-            gameSpeed = 450L
+            stopSensorMode()
 
+            gameSpeed = 450L
             menuLayout.visibility = View.GONE
 
+            resetGameValues()
+
             gameManager.setSpeed(gameSpeed)
-            gameManager.startGame()
+            gameManager.restartGame()
         }
 
         fastModeButton.setOnClickListener {
-            gameSpeed = 300L
+            stopSensorMode()
 
+            gameSpeed = 300L
             menuLayout.visibility = View.GONE
 
+            resetGameValues()
+
             gameManager.setSpeed(gameSpeed)
-            gameManager.startGame()
+            gameManager.restartGame()
         }
 
         sensorModeButton.setOnClickListener {
-
-            gameSpeed = 300L
-
-            menuLayout.visibility = View.GONE
-
-            gameManager.setSpeed(gameSpeed)
-            gameManager.startGame()
-
-            startSensorMode()
+            AlertDialog.Builder(this)
+                .setTitle("Sensor Mode")
+                .setMessage("Choose sensor speed")
+                .setPositiveButton("Fast") { _, _ ->
+                    startSensorGame(300L)
+                }
+                .setNegativeButton("Slow") { _, _ ->
+                    startSensorGame(450L)
+                }
+                .show()
         }
         startOverButton.setOnClickListener {
             gameOverLayout.visibility = View.GONE
-            score = 0
-            updateScore()
-            distance = 0
-            updateDistance()
-            resetAllObstacles()
-            gameManager.restartGame()
 
+            resetGameValues()
+            gameManager.restartGame()
         }
 
+        backToMenuButton.setOnClickListener {
+            gameManager.stopGame()
+            stopSensorMode()
+
+            gameOverLayout.visibility = View.GONE
+            menuLayout.visibility = View.VISIBLE
+
+            resetGameValues()
+        }
     }
 
+    private fun startSensorGame(speed: Long) {
+        gameSpeed = speed
+
+        menuLayout.visibility = View.GONE
+        gameOverLayout.visibility = View.GONE
+
+        resetGameValues()
+
+        gameManager.setSpeed(gameSpeed)
+        startSensorMode()
+        gameManager.restartGame()
+    }
+
+    private fun stopSensorMode() {
+        sensorMode = false
+        sensorManager.unregisterListener(sensorListener)
+
+        leftButton.visibility = View.VISIBLE
+        rightButton.visibility = View.VISIBLE
+    }
     private fun createObstacles() {
         repeat(3) { index ->
             val image = ImageView(this)
@@ -384,5 +422,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateDistance() {
         distanceText.text = "Distance: " + distance + "m"
+    }
+
+    private fun resetCoins() {
+        for (coin in coins) {
+            resetCoin(coin)
+        }
+    }
+    private fun resetGameValues() {
+        score = 0
+        updateScore()
+
+        distance = 0
+        updateDistance()
+
+        currentLane = 2
+        movePlayerToLane()
+
+        resetAllObstacles()
+        resetCoins()
     }
 }
