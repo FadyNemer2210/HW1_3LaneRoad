@@ -3,8 +3,30 @@
     android:id="@+id/gameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/football_pitch">
+    android:background="@drawable/football_pitch2">
 
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/coin_count"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/distanceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/distance_text"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
     <LinearLayout
         android:id="@+id/livesLayout"
         android:layout_width="wrap_content"
@@ -62,7 +84,37 @@
         android:src="@drawable/right_arrow"
         android:clickable="true"
         android:focusable="true" />
+    <LinearLayout
+        android:id="@+id/menuLayout"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        android:background="#CC000000">
 
+        <Button
+            android:id="@+id/slowModeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/slow_mode" />
+
+        <Button
+            android:id="@+id/fastModeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/fast_mode" />
+
+        <Button
+            android:id="@+id/sensorModeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/sensor_mode" />
+
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/gameOverLayout"
         android:layout_width="300dp"

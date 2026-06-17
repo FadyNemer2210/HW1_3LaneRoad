@@ -9,6 +9,7 @@ import android.os.Vibrator
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import android.media.MediaPlayer
 
 class GameManager(
     private val context: Context,
@@ -25,7 +26,7 @@ class GameManager(
     private var lives = 3
     private var isRunning = false
     private var canCrash = true
-
+    private var tickSpeed = 300L
     private val playerRow = 5
 
     private val gameRunnable = object : Runnable {
@@ -35,7 +36,7 @@ class GameManager(
             onGameTick()
             checkCollisionByMatrix()
 
-            handler.postDelayed(this, 500)
+            handler.postDelayed(this, tickSpeed)
         }
     }
 
@@ -43,7 +44,11 @@ class GameManager(
         if (!canCrash) return
 
         for (obstacle in obstacles) {
-            if (obstacle.row == playerRow && obstacle.lane == playerLane()) {
+            if (
+                obstacle.lane == playerLane() &&
+                obstacle.row >= playerRow &&
+                obstacle.row <= playerRow + 1
+            ) {
                 handleCrash(obstacle)
                 break
             }
@@ -56,6 +61,7 @@ class GameManager(
 
         Toast.makeText(context, "Bottle incoming 😂", Toast.LENGTH_SHORT).show()
         vibrate()
+        playCrashSound()
         updateLivesUI()
 
         obstacle.row = -4
@@ -105,4 +111,24 @@ class GameManager(
         isRunning = false
         handler.removeCallbacks(gameRunnable)
     }
+
+    fun setSpeed(speed: Long) {
+        tickSpeed = speed
+    }
+
+    private fun playCrashSound() {
+
+        val mediaPlayer =
+            MediaPlayer.create(
+                context,
+                R.raw.crash_sound
+            )
+
+        mediaPlayer.start()
+
+        mediaPlayer.setOnCompletionListener {
+            it.release()
+        }
+    }
+
 }

@@ -2,4 +2,9 @@
     <string name="BottleJobFC">BottleJobFC</string>
     <string name="start_over">Start Over</string>
     <string name="game_over_message">Game Over\nAnother year without UCL for Arsenal 💀</string>
+    <string name="slow_mode">Slow Mode</string>
+    <string name="fast_mode">Fast Mode</string>
+    <string name="sensor_mode">Sensor Mode</string>
+    <string name="coin_count">coin count: </string>
+    <string name="distance_text">Distance: 0m</string>
 </resources>
