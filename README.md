@@ -9,22 +9,22 @@ Collect coins to increase your score while surviving as long as possible.
 
 ## Features
 
-* 5 lane road
-* Matrix-based movement system
-* Multiple falling UCL trophies
-* Coin collectibles
+* 5 lane road system
+* Matrix-based movement using rows and lanes
+* Multiple falling UCL trophies as obstacles
+* Coin collectibles with sound effects
 * Score counter
 * Distance counter
 * 3 lives system
 * Crash sound effect
-* Coin collection sound effect
 * Vibration on collision
 * Slow mode
 * Fast mode
-* Sensor mode
+* Sensor mode using phone tilt controls
+* Sensor mode speed selection (Fast / Slow)
 * Game Over screen
 * Start Over button
-* Custom launcher icon
+* Back To Menu button
 
 ## Controls
 
